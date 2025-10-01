@@ -4,56 +4,50 @@
  * _printf - Produces output according to a format.
  * @format: The format string.
  *
- * Return: The number of characters printed.
+ * Return: The number of characters printed (excluding the null byte).
+ * On error, -1 is returned.
  */
 int _printf(const char *format, ...)
 {
 	va_list args;
-	int i = 0, count = 0, j;
+	int i, count = 0;
 	char *str;
 
 	if (format == NULL)
 		return (-1);
-
 	va_start(args, format);
-	while (format && format[i])
+	for (i = 0; format[i] != '\0'; i++)
 	{
 		if (format[i] == '%')
 		{
-			i++; /* Move past the '%' */
+			i++; /* Move past '%' to the specifier */
+			if (format[i] == '\0') /* Check for dangling '%' */
+				return (-1);
 			switch (format[i])
 			{
 				case 'c':
-					_putchar(va_arg(args, int));
-					count++;
+					count += _putchar(va_arg(args, int));
 					break;
 				case 's':
 					str = va_arg(args, char *);
 					if (str == NULL)
 						str = "(null)";
-					for (j = 0; str[j]; j++)
-					{
-						_putchar(str[j]);
-						count++;
-					}
+					while (*str)
+						count += _putchar(*str++);
 					break;
 				case '%':
-					_putchar('%');
-					count++;
+					count += _putchar('%');
 					break;
-				default: /* Handle unknown specifiers */
-					_putchar('%');
-					_putchar(format[i]);
-					count += 2;
+				default: /* Handle unknown specifiers like %r */
+					count += _putchar('%');
+					count += _putchar(format[i]);
 					break;
 			}
 		}
 		else
 		{
-			_putchar(format[i]);
-			count++;
+			count += _putchar(format[i]);
 		}
-		i++;
 	}
 	va_end(args);
 	return (count);
