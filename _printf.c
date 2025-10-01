@@ -38,7 +38,7 @@ int _printf(const char *format, ...)
 				case '%':
 					count += _putchar('%');
 					break;
-				default: /* Handle unknown specifiers like %r */
+				default:
 					count += _putchar('%');
 					count += _putchar(format[i]);
 					break;
