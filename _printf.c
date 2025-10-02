@@ -4,12 +4,12 @@ static int handle_specifier(char specifier, va_list args);
 static int print_int(va_list args);
 static int print_unsigned_rec(unsigned int n);
 static int print_binary(unsigned int n) __attribute__((unused));
+
 /**
  * _printf - Produces output according to a format.
  * @format: The format string.
  *
  * Return: The number of characters printed (excluding the null byte).
- * On error, -1 is returned.
  */
 int _printf(const char *format, ...)
 {
@@ -27,7 +27,6 @@ int _printf(const char *format, ...)
 			i++;
 			if (format[i] == '\0')
 				return (-1);
-
 			count += handle_specifier(format[i], args);
 		}
 		else
@@ -67,9 +66,12 @@ static int handle_specifier(char specifier, va_list args)
 			count += _putchar('%');
 			break;
 		case 'd':
-                case 'i':
-                        count += print_int(args);
-                        break; 
+		case 'i':
+			count += print_int(args);
+			break;
+		case 'b':
+			count += print_binary(va_arg(args, unsigned int));
+			break;
 		default:
 			count += _putchar('%');
 			count += _putchar(specifier);
@@ -79,49 +81,48 @@ static int handle_specifier(char specifier, va_list args)
 }
 
 /**
- * print_unsigned_rec - Prints an unsigned integer recursively in base 10.
+ * print_unsigned_rec - Prints an unsigned integer recursively.
  * @n: The unsigned integer to print.
  *
  * Return: The number of characters printed.
  */
-
 static int print_unsigned_rec(unsigned int n)
 {
-    int count = 0;
+	int count = 0;
 
-    if (n / 10)
-        count += print_unsigned_rec(n / 10);
+	if (n / 10)
+		count += print_unsigned_rec(n / 10);
 
-    count += _putchar((n % 10) + '0');
-    return (count);
+	count += _putchar((n % 10) + '0');
+	return (count);
 }
 
 /**
- * print_int - Prints a signed integer for %d and %i.
+ * print_int - Prints a signed integer.
  * @args: The va_list containing the integer argument.
  *
- * Return: The number of characters printed (including '-' if negative).
+ * Return: The number of characters printed.
  */
-
 static int print_int(va_list args)
 {
-    int n = va_arg(args, int);
-    unsigned int u;
-    int count = 0;
+	int n = va_arg(args, int);
+	unsigned int u;
+	int count = 0;
 
-    if (n < 0)
-    {
-        count += _putchar('-');
-        u = (unsigned int)(-(n + 1)) + 1;
-    }
-    else
-    {
-        u = (unsigned int)n;
-    }
+	if (n < 0)
+	{
+		count += _putchar('-');
+		u = (unsigned int)(-(n + 1)) + 1;
+	}
+	else
+	{
+		u = (unsigned int)n;
+	}
 
-    count += print_unsigned_rec(u);
-    return (count);
+	count += print_unsigned_rec(u);
+	return (count);
 }
+
 /**
  * print_binary - Converts an unsigned int to binary and prints it.
  * @n: The unsigned integer to convert.
