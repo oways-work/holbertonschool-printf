@@ -3,7 +3,7 @@
 static int handle_specifier(char specifier, va_list args);
 static int print_int(va_list args);
 static int print_unsigned_rec(unsigned int n);
-
+static int print_binary(unsigned int n);
 /**
  * _printf - Produces output according to a format.
  * @format: The format string.
@@ -121,4 +121,27 @@ static int print_int(va_list args)
 
     count += print_unsigned_rec(u);
     return (count);
+}
+/**
+ * print_binary - Converts an unsigned int to binary and prints it.
+ * @n: The unsigned integer to convert.
+ *
+ * Return: The number of characters printed.
+ */
+static int print_binary(unsigned int n)
+{
+	int count = 0;
+
+	if (n == 0)
+	{
+		_putchar('0');
+		return (1);
+	}
+
+	if (n / 2)
+		count += print_binary(n / 2);
+
+	count += _putchar((n % 2) + '0');
+
+	return (count);
 }
