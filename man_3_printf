@@ -29,11 +29,38 @@ RETURN VALUE
        On error, it returns -1.
 
 EXAMPLES
-       _printf("Hello %s\n", "Rateel");
-              Output: Hello Rateel
+       The following program demonstrates the use of each specifier.
 
-       _printf("Value: %d\n", 2025);
-              Output: Value: 2025
+           #include "main.h"
+
+           /**
+            * main - Entry Point
+            *
+            * Return: Always 0
+            */
+           int main(void)
+           {
+               /* Print a character */
+               _printf("Character: %c\n", 'A');
+
+               /* Print a string */
+               _printf("String: %s\n", "Hello");
+
+               /* Print an integer */
+               _printf("Integer: %d\n", 123);
+
+               /* Print a number in binary */
+               _printf("Binary of 98: %b\n", 98);
+
+               /* Print a percent sign */
+               _printf("Percent: %%\n");
+
+               return (0);
+           }
+
+BUGS
+       This implementation of _printf() does not handle flag characters,
+       field width, precision, or length modifiers.
 
 SEE ALSO
        printf(3), write(2), stdarg(3)
