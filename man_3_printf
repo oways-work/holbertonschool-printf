@@ -1,0 +1,45 @@
+PRINTF(3)                  Library Functions Manual                 PRINTF(3)
+
+NAME
+       _printf - print text and variables in a formatted way
+
+SYNOPSIS
+       #include "main.h"
+
+       int _printf(const char *format, ...);
+
+DESCRIPTION
+       The _printf() function is a simplified version of the C library printf.
+       It sends output to the standard output (your screen).
+
+       The format string can contain:
+        - Normal characters: they are printed exactly as they are.
+        - Special format codes starting with %: these are replaced with values
+          from the extra arguments that follow.
+
+       Supported format codes in this project are:
+              %c   Print a single character.
+              %s   Print a string (prints "(null)" if the string is NULL).
+              %%   Print a literal percent sign.
+              %d   Print a signed decimal integer.
+              %i   Print a signed decimal integer (same as %d).
+
+RETURN VALUE
+       On success, _printf() returns the number of characters printed.
+       On error, it returns -1.
+
+EXAMPLES
+       _printf("Hello %s\n", "Rateel");
+              Output: Hello Rateel
+
+       _printf("Value: %d\n", 2025);
+              Output: Value: 2025
+
+SEE ALSO
+       printf(3), write(2), stdarg(3)
+
+AUTHORS
+       Rateel Bahathiq
+       Ois Aljbreen
+
+Library Functions Manual            October 2025                     PRINTF(3)
