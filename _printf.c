@@ -3,7 +3,7 @@
 static int handle_specifier(char specifier, va_list args);
 static int print_int(va_list args);
 static int print_unsigned_rec(unsigned int n);
-static int print_binary(unsigned int n);
+static int print_binary(unsigned int n) __attribute__((unused));
 /**
  * _printf - Produces output according to a format.
  * @format: The format string.
