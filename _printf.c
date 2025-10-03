@@ -3,8 +3,7 @@
 static int handle_specifier(char specifier, va_list args);
 static int print_int(va_list args);
 static int print_unsigned_rec(unsigned int n);
-static int print_binary(unsigned int n) __attribute__((unused));
-static int print_unsigned(va_list args);                 
+static int print_binary(unsigned int n) __attribute__((unused));             
 static int print_base(unsigned int n, int base, int uppercase);
 
 /**
