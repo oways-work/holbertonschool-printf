@@ -4,6 +4,8 @@ static int handle_specifier(char specifier, va_list args);
 static int print_int(va_list args);
 static int print_unsigned_rec(unsigned int n);
 static int print_binary(unsigned int n) __attribute__((unused));
+static int print_unsigned(va_list args);                 
+static int print_base(unsigned int n, int base, int uppercase);
 
 /**
  * _printf - Produces output according to a format.
@@ -71,6 +73,18 @@ static int handle_specifier(char specifier, va_list args)
 			break;
 		case 'b':
 			count += print_binary(va_arg(args, unsigned int));
+			break;
+		case 'u':
+			count += print_unsigned(args);
+			break;
+		case 'o':
+			count += print_base(va_arg(args, unsigned int), 8, 0);
+			break;
+		case 'x':
+			count += print_base(va_arg(args, unsigned int), 16, 0);
+			break;
+		case 'X':
+			count += print_base(va_arg(args, unsigned int), 16, 1);
 			break;
 		default:
 			count += _putchar('%');
@@ -144,5 +158,51 @@ static int print_binary(unsigned int n)
 
 	count += _putchar((n % 2) + '0');
 
+	return (count);
+}
+
+/**
+ * print_unsigned - Prints an unsigned decimal integer (%u).
+ * @args: The va_list containing the unsigned int.
+ *
+ * Return: The number of characters printed.
+ */
+static int print_unsigned(va_list args)
+{
+	unsigned int u = va_arg(args, unsigned int);
+
+
+	return (print_unsigned_rec(u));
+}
+/**
+ * print_base - Prints an unsigned int in a given base (8 or 16 for this task).
+ * @n: The number.
+ * @base: Base to print (8 or 16).
+ * @uppercase: If non-zero, use 'A'-'F'; else 'a'-'f' for hex.
+ *
+ * Return: The number of characters printed.
+ */
+static int print_base(unsigned int n, int base, int uppercase)
+{
+	int count = 0;
+	char digit;
+
+	if (base != 8 && base != 16)
+		return (0);
+
+	if (n == 0)
+		return (_putchar('0'));
+
+	if (n / (unsigned int)base)
+		count += print_base(n / (unsigned int)base, base, uppercase);
+
+	n %= (unsigned int)base;
+
+	if (n < 10)
+		digit = (char)('0' + n);
+	else
+		digit = (char)((uppercase ? 'A' : 'a') + (n - 10));
+
+	count += _putchar(digit);
 	return (count);
 }
