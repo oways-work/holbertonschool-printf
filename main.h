@@ -11,4 +11,19 @@ int _printf(const char *format, ...);
 /* Helper function to print a single character */
 int _putchar(char c);
 
+/* Prints a signed integer */
+int print_int(va_list args);
+
+/* Prints an unsigned integer in base 10 */
+int print_unsigned_rec(unsigned int n);
+
+/* Prints an unsigned integer using decimal recursion */
+int print_unsigned(va_list args);
+
+/* Prints an unsigned integer in binary */
+int print_binary(unsigned int n);
+
+/* Prints an unsigned integer in base 8 or 16 */
+int print_base(unsigned int n, int base, int uppercase);
+
 #endif /* MAIN_H */
