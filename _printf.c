@@ -78,7 +78,7 @@ static int handle_specifier(char specifier, va_list args)
 			break;
 		case 'x':
 			count += print_base(va_arg(args, unsigned int), 16, 0);
-			brek;
+			break;
 		case 'X':
 			count += print_base(va_arg(args, unsigned int), 16, 1);
 			break;
